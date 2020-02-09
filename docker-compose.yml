@@ -1,0 +1,32 @@
+version: '2'
+
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge
+
+services:
+  janus-gateway:
+    image: maciekkolesnik/mjpeg-to-webrtc-pi
+    container_name: jmpeg
+    volumes:
+      - /var/log/janus/:/var/log/janus/
+    devices:
+      - /dev/vchiq:/dev/vchiq
+    ports:
+      - 8090:80
+      - 8088:8088
+      - 7088:7088
+      - 8188:8188
+      - 3333:3333/udp
+      - 8004:8004/udp
+      - 8004:8004
+      - 5004:5004/udp
+      - 5004:5004
+      - 5002:5002/udp
+      - 5002:5002
+    networks:
+      - back-tier
+      - front-tier
+
